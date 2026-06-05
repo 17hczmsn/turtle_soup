@@ -1,0 +1,77 @@
+{
+    "name": "turtle_soup",
+    "version": "1.0.0",
+    "description": "海龟汤互动游戏插件，支持自动从网络公开题库获取完整汤面汤底。",
+    "author": "阿巴",
+    "dependencies": {
+        "plugins": [],
+        "components": []
+    },
+    "include": [
+        {
+            "component_type": "action",
+            "component_name": "start_turtle_soup_game",
+            "dependencies": [],
+            "enabled": true
+        },
+        {
+            "component_type": "action",
+            "component_name": "ask_turtle_soup_question",
+            "dependencies": [],
+            "enabled": true
+        },
+        {
+            "component_type": "action",
+            "component_name": "request_turtle_soup_hint",
+            "dependencies": [],
+            "enabled": true
+        },
+        {
+            "component_type": "action",
+            "component_name": "summarize_turtle_soup_clues",
+            "dependencies": [],
+            "enabled": true
+        },
+        {
+            "component_type": "action",
+            "component_name": "guess_turtle_soup_answer",
+            "dependencies": [],
+            "enabled": true
+        },
+        {
+            "component_type": "action",
+            "component_name": "reveal_turtle_soup_answer",
+            "dependencies": [],
+            "enabled": true
+        },
+        {
+            "component_type": "action",
+            "component_name": "exit_turtle_soup_game",
+            "dependencies": [],
+            "enabled": true
+        },
+        {
+            "component_type": "tool",
+            "component_name": "get_turtle_soup_state",
+            "dependencies": [],
+            "enabled": true
+        },
+        {
+            "component_type": "tool",
+            "component_name": "get_turtle_soup_question",
+            "dependencies": [],
+            "enabled": true
+        }
+    ],
+    "entry_point": "plugin.py",
+    "min_core_version": "1.0.0",
+    "python_dependencies": [],
+    "dependencies_required": true,
+    "display_name": "海龟汤",
+    "categories": [
+        "fun"
+    ],
+    "tags": [
+        "游戏"
+    ]
+}

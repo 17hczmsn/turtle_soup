@@ -1,0 +1,162 @@
+[
+  {
+    "title": "无声电话",
+    "surface": "她每天都接到同一个号码的电话，电话里没有声音。三天后，她主动报了警。",
+    "answer": "来电号码属于她三天前失踪的丈夫。警方通过通话记录定位到丈夫手机，最终发现丈夫遇害，凶手一直用手机确认她是否在家。",
+    "difficulty": "medium",
+    "source": "local_fallback",
+    "source_url": ""
+  },
+  {
+    "title": "倒放的生日歌",
+    "surface": "生日那天，他听到邻居家播放生日歌，却立刻冲出去报警。",
+    "answer": "邻居家的孩子已经失踪多日。那首生日歌是孩子失踪前录下的视频声音，被凶手倒放处理后误传出来，他听出了孩子求救时提到的地址。",
+    "difficulty": "medium",
+    "source": "local_fallback",
+    "source_url": ""
+  },
+  {
+    "title": "深夜电梯",
+    "surface": "深夜，他一个人进了电梯。电梯门打开时，外面空无一人，他却立刻按下了报警按钮。",
+    "answer": "电梯里原本只有他，但楼层按钮被连续按下，说明有人在监控或远程控制电梯。门外无人却能操控电梯，他意识到自己可能被困在预设路线里，于是报警。",
+    "difficulty": "medium",
+    "source": "local_fallback",
+    "source_url": ""
+  },
+  {
+    "title": "空白照片",
+    "surface": "她洗出一卷旅行照片，所有照片都是空白。看完后，她马上取消了婚礼。",
+    "answer": "那卷胶片本应记录她和未婚夫的旅行，但照片全是空白，说明相机从未真正打开。未婚夫一直假装拍照，是为了掩盖那段旅行里真正发生的事。",
+    "difficulty": "medium",
+    "source": "local_fallback",
+    "source_url": ""
+  },
+  {
+    "title": "迟到的外卖",
+    "surface": "外卖迟到了两个小时，他却给了骑手五星好评，然后报了警。",
+    "answer": "骑手送来时衣服和平台信息都对不上，餐盒还是热的，说明真正骑手很可能在路上出事，后来的人冒充骑手送餐。他先稳住对方，随后报警。",
+    "difficulty": "medium",
+    "source": "local_fallback",
+    "source_url": ""
+  },
+  {
+    "title": "不会响的闹钟",
+    "surface": "他每天都被闹钟叫醒。某天闹钟没有响，他却知道自己安全了。",
+    "answer": "闹钟声其实来自隔壁固定时间的机器运转声，不是他的闹钟。那台机器一直被用来掩盖某种异常声音。机器停止后，危险源也被移除，所以他知道自己安全了。",
+    "difficulty": "hard",
+    "source": "local_fallback",
+    "source_url": ""
+  },
+  {
+    "title": "红色雨伞",
+    "surface": "雨停后，她看到门口多了一把红色雨伞，于是决定搬家。",
+    "answer": "那把红伞是她早已丢失的伞，只可能被知道她新住址的人放回门口。她意识到一直躲避的人已经找到了她，所以决定立刻搬走。",
+    "difficulty": "easy",
+    "source": "local_fallback",
+    "source_url": ""
+  },
+  {
+    "title": "最后一页",
+    "surface": "他读完一本书的最后一页后，立刻把书店老板告上了法庭。",
+    "answer": "那本书是他已故亲人的遗稿，本不该公开出售。最后一页有只有家人才知道的签名和说明，证明书店非法取得并售卖了遗稿。",
+    "difficulty": "medium",
+    "source": "local_fallback",
+    "source_url": ""
+  },
+  {
+    "title": "关灯的病房",
+    "surface": "护士每晚都会在同一时间关掉病房的灯。那天她没有关灯，病人却哭了。",
+    "answer": "病人靠窗外灯光确认远处亲人的病房是否还亮着。护士没有关灯，是因为窗外那间病房已经熄灯，意味着亲人去世了，她不忍让病人马上知道。",
+    "difficulty": "medium",
+    "source": "local_fallback",
+    "source_url": ""
+  },
+  {
+    "title": "第三杯水",
+    "surface": "桌上有三杯水，只有第三杯被喝完了。警察因此确定他在撒谎。",
+    "answer": "他说自己独自在家，但三杯水的摆放显示有人按固定顺序倒水。第三杯被喝完说明第三个人刚离开或被藏起来，他所谓独处不成立。",
+    "difficulty": "medium",
+    "source": "local_fallback",
+    "source_url": ""
+  },
+  {
+    "title": "没有影子的男人",
+    "surface": "她在照片里看到一个没有影子的男人，于是再也不敢回那座房子。",
+    "answer": "照片是在白天拍的，所有人都有影子，只有那个男人没有，说明他不是站在那里的人，而是后来被叠加或从镜面反射中出现。有人伪造照片监视她。",
+    "difficulty": "hard",
+    "source": "local_fallback",
+    "source_url": ""
+  },
+  {
+    "title": "反锁的门",
+    "surface": "房门从里面反锁，窗户也关着。警察看了一眼门口的鞋，就判断屋里还有一个人。",
+    "answer": "门口只有一双外出的鞋，但屋内的人不可能赤脚出门后又把门从里面反锁。说明另一个人穿走了鞋或仍藏在屋里。",
+    "difficulty": "medium",
+    "source": "local_fallback",
+    "source_url": ""
+  },
+  {
+    "title": "空座位",
+    "surface": "电影院里只剩一个空座位。电影开始后，他看着那个座位，立刻离开了影厅。",
+    "answer": "那个座位本该属于他已经去世的朋友，票是朋友生前买好的。开场后空座旁出现了朋友常用的物品，他意识到有人冒用朋友身份进出，于是离开报警。",
+    "difficulty": "medium",
+    "source": "local_fallback",
+    "source_url": ""
+  },
+  {
+    "title": "迟到的钟声",
+    "surface": "教堂钟声晚了十分钟，镇上的人却都松了一口气。",
+    "answer": "钟声原本是灾难预警的一部分，准点响代表危险已经发生。晚十分钟说明负责敲钟的人有时间确认警报是误报，所以大家松了一口气。",
+    "difficulty": "easy",
+    "source": "local_fallback",
+    "source_url": ""
+  },
+  {
+    "title": "多出来的钥匙",
+    "surface": "她发现钥匙串上多了一把钥匙，于是立刻把所有锁都换了。",
+    "answer": "那把钥匙能打开她家门，说明有人拿走过她的钥匙串并偷偷配钥匙，之后又把钥匙放回来试探她是否发现。",
+    "difficulty": "easy",
+    "source": "local_fallback",
+    "source_url": ""
+  },
+  {
+    "title": "雨夜的脚印",
+    "surface": "雨夜过后，门口没有任何脚印。他却因此确定昨晚有人来过。",
+    "answer": "整条路都是泥地，正常来访一定留下脚印。门口完全没有脚印，说明有人刻意清理过痕迹，这比留下脚印更可疑。",
+    "difficulty": "easy",
+    "source": "local_fallback",
+    "source_url": ""
+  },
+  {
+    "title": "消失的猫",
+    "surface": "他的猫失踪了三天。猫回来后，他立刻搬离了那栋楼。",
+    "answer": "猫脖子上多了一个陌生定位器，说明有人抓住猫并借它确认他的住址和生活规律。他意识到自己被跟踪，所以搬走。",
+    "difficulty": "medium",
+    "source": "local_fallback",
+    "source_url": ""
+  },
+  {
+    "title": "同一首歌",
+    "surface": "隔壁每天凌晨播放同一首歌。她听到第七天时，终于报警了。",
+    "answer": "那首歌的音量和片段每天都一样，说明不是人在播放，而是预设循环。第七天屋里仍无任何生活声音，她怀疑邻居早已出事。",
+    "difficulty": "medium",
+    "source": "local_fallback",
+    "source_url": ""
+  },
+  {
+    "title": "破碎的镜子",
+    "surface": "镜子碎了，他却没有受伤。看到碎片的位置后，他向警方自首。",
+    "answer": "镜子不是被他面前打碎的，而是从背后被撞碎。碎片方向证明他之前关于现场位置的说法是假的，他意识到再隐瞒也无用。",
+    "difficulty": "hard",
+    "source": "local_fallback",
+    "source_url": ""
+  },
+  {
+    "title": "空邮件",
+    "surface": "她连续收到三封没有内容的邮件。第四天，她没有打开邮箱就报了警。",
+    "answer": "邮件标题每次都是一个字，连起来是她和朋友约定的求救暗号。第四天该来的字没有来，说明朋友可能已经无法继续发送，她马上报警。",
+    "difficulty": "medium",
+    "source": "local_fallback",
+    "source_url": ""
+  }
+]
