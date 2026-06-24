@@ -1,6 +1,6 @@
 {
     "name": "turtle_soup",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "海龟汤互动游戏插件，支持自动从网络公开题库获取完整汤面汤底。",
     "author": "阿巴",
     "dependencies": {

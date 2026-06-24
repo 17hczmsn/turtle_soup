@@ -40,6 +40,7 @@ class StartTurtleSoupGameAction(BaseAction):
     action_name: str = "start_turtle_soup_game"
     action_description: str = "当用户想玩、开一局、来一局海龟汤或换一个海龟汤时触发。返回新汤面事实；后续由你按角色人设组织回复，但必须完整保留汤面。"
     primary_action: bool = True
+    associated_types: list[str] = ["text"]
 
     async def execute(self) -> tuple[bool, str]:
         """执行开局。"""
@@ -63,6 +64,7 @@ class AskTurtleSoupQuestionAction(BaseAction):
     action_name: str = "ask_turtle_soup_question"
     action_description: str = "当海龟汤游戏进行中，用户询问是/否类问题或调查细节时触发。返回标准事实答案；后续可以按角色语气发送，但不能改变答案词。"
     primary_action: bool = True
+    associated_types: list[str] = ["text"]
 
     async def execute(self, question: Annotated[str, "玩家对当前海龟汤提出的问题"]) -> tuple[bool, str]:
         """执行提问回答。"""
@@ -87,6 +89,7 @@ class RequestTurtleSoupHintAction(BaseAction):
     action_name: str = "request_turtle_soup_hint"
     action_description: str = "当海龟汤游戏进行中，用户表示想要提示、线索、方向时触发。返回提示事实；后续由你按角色人设组织回复，但不能扩展提示事实。"
     primary_action: bool = True
+    associated_types: list[str] = ["text"]
 
     async def execute(self) -> tuple[bool, str]:
         """执行提示请求。"""
@@ -111,6 +114,7 @@ class SummarizeTurtleSoupCluesAction(BaseAction):
     action_name: str = "summarize_turtle_soup_clues"
     action_description: str = "当海龟汤游戏进行中，用户要求复盘、整理当前线索、总结已知信息时触发。返回公开历史事实；后续由你按角色人设整理，但不能新增未确认内容。"
     primary_action: bool = True
+    associated_types: list[str] = ["text"]
 
     async def execute(self) -> tuple[bool, str]:
         """执行线索整理。"""
@@ -135,6 +139,7 @@ class GuessTurtleSoupAnswerAction(BaseAction):
     action_name: str = "guess_turtle_soup_answer"
     action_description: str = "当海龟汤游戏进行中，用户明确给出对真相、答案、汤底的猜测时触发。返回猜测判断事实；后续由你按角色人设组织回复。"
     primary_action: bool = True
+    associated_types: list[str] = ["text"]
 
     async def execute(self, guess: Annotated[str, "玩家对汤底真相的猜测"]) -> tuple[bool, str]:
         """执行猜测判断。"""
@@ -159,6 +164,7 @@ class RevealTurtleSoupAnswerAction(BaseAction):
     action_name: str = "reveal_turtle_soup_answer"
     action_description: str = "当海龟汤游戏进行中，用户要求公布答案、揭秘、看汤底、结束并揭晓时触发。返回汤面和汤底事实；后续由你按角色人设揭晓。"
     primary_action: bool = True
+    associated_types: list[str] = ["text"]
 
     async def execute(self) -> tuple[bool, str]:
         """执行揭秘。"""
@@ -183,6 +189,7 @@ class ExitTurtleSoupGameAction(BaseAction):
     action_name: str = "exit_turtle_soup_game"
     action_description: str = "当用户表示退出、结束当前海龟汤但不要求公布答案时触发。返回退出事实；后续由你按角色人设确认结束。"
     primary_action: bool = True
+    associated_types: list[str] = ["text"]
 
     async def execute(self) -> tuple[bool, str]:
         """执行退出。"""
