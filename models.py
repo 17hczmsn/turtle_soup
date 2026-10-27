@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
+from time import monotonic
 from typing import Literal
 
 
@@ -74,6 +75,20 @@ class TurtleSoupState:
     game_active: bool = False
     game_over: bool = False
     history: list[TurtleSoupHistoryItem] = field(default_factory=list)
+    # 最近一次游戏交互的单调时间戳，用于闲置超时判定
+    last_activity: float = field(default_factory=monotonic)
+
+    def touch(self) -> None:
+        """刷新最近交互时间。"""
+
+        self.last_activity = monotonic()
+
+    def is_idle_expired(self, timeout_minutes: int) -> bool:
+        """判断是否超过闲置时长（0 或负值表示不启用超时）。"""
+
+        if timeout_minutes <= 0:
+            return False
+        return (monotonic() - self.last_activity) >= timeout_minutes * 60
 
     def add_history(self, item: TurtleSoupHistoryItem, max_items: int) -> None:
         """追加历史并按上限裁剪。"""

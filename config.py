@@ -25,6 +25,10 @@ class TurtleSoupConfig(BaseConfig):
 
         max_hints: int = Field(default=3, description="每局最多提示次数")
         max_history_items: int = Field(default=30, description="最多保留的历史交互条数")
+        idle_timeout_minutes: int = Field(
+            default=30,
+            description="闲置超时分钟数：超过该时长没有任何游戏互动则自动结束本局并移除主持人 reminder；0 表示不启用",
+        )
 
     @config_section("puzzle")
     class PuzzleSection(SectionBase):
@@ -53,12 +57,22 @@ class TurtleSoupConfig(BaseConfig):
         )
         request_timeout_seconds: float = Field(default=10.0, description="网页请求超时时间")
         max_page_bytes: int = Field(default=1_000_000, description="单页最大读取字节数")
+        supplement_cooldown_minutes: int = Field(default=30, description="两次网络补库之间的冷却分钟数，冷却期内开局直接使用缓存或本地题库")
+        use_mcp_search: bool = Field(default=True, description="补库时是否优先调用 MCP 搜索工具（自动挑选网络搜索类工具，不可用时退回内置抓取）")
+        mcp_tool_signature: str = Field(
+            default="",
+            description="固定使用的 MCP 搜索工具组件签名；留空时自动挑选带网络搜索能力的 MCP 工具",
+        )
 
     @config_section("llm")
     class LLMSection(SectionBase):
         """LLM 互动配置。"""
 
-        model_task: str = Field(default="utils_small", description="用于问答、提示、判断的模型任务名")
+        model_task: str = Field(default="utils_small", description="用于提示、判断兜底的模型任务名")
+        answer_in_actor_model: bool = Field(
+            default=True,
+            description="开局时把汤底与主持规则注入主回复模型（actor）的流私有 system reminder，问答判定、提示生成、猜测判断由主模型直接完成；关闭后退回小模型",
+        )
         temperature: float = Field(default=0.3, description="互动判断生成温度")
         max_tokens: int = Field(default=500, description="单次最大输出 token 数")
 

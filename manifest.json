@@ -1,7 +1,7 @@
 {
     "name": "turtle_soup",
-    "version": "1.0.0",
-    "description": "海龟汤互动游戏插件，支持自动从网络公开题库获取完整汤面汤底。",
+    "version": "1.2.0",
+    "description": "海龟汤互动游戏插件，支持 MCP 搜索与公开题库页面自动补充题库。",
     "author": "阿巴",
     "dependencies": {
         "plugins": [],
@@ -9,43 +9,43 @@
     },
     "include": [
         {
-            "component_type": "action",
+            "component_type": "tool",
             "component_name": "start_turtle_soup_game",
             "dependencies": [],
             "enabled": true
         },
         {
-            "component_type": "action",
+            "component_type": "tool",
             "component_name": "ask_turtle_soup_question",
             "dependencies": [],
             "enabled": true
         },
         {
-            "component_type": "action",
+            "component_type": "tool",
             "component_name": "request_turtle_soup_hint",
             "dependencies": [],
             "enabled": true
         },
         {
-            "component_type": "action",
+            "component_type": "tool",
             "component_name": "summarize_turtle_soup_clues",
             "dependencies": [],
             "enabled": true
         },
         {
-            "component_type": "action",
+            "component_type": "tool",
             "component_name": "guess_turtle_soup_answer",
             "dependencies": [],
             "enabled": true
         },
         {
-            "component_type": "action",
+            "component_type": "tool",
             "component_name": "reveal_turtle_soup_answer",
             "dependencies": [],
             "enabled": true
         },
         {
-            "component_type": "action",
+            "component_type": "tool",
             "component_name": "exit_turtle_soup_game",
             "dependencies": [],
             "enabled": true
@@ -61,9 +61,28 @@
             "component_name": "get_turtle_soup_question",
             "dependencies": [],
             "enabled": true
+        },
+        {
+            "component_type": "service",
+            "component_name": "turtle_soup",
+            "dependencies": [],
+            "enabled": true
+        },
+        {
+            "component_type": "event_handler",
+            "component_name": "turtle_soup_idle_timeout",
+            "dependencies": [],
+            "enabled": true
         }
     ],
     "entry_point": "plugin.py",
+    "api_version": {
+        "event_api": "1.1.0",
+        "llm_api": "1.1.0",
+        "prompt_api": "1.0.0",
+        "service_api": "1.0.0",
+        "tool_api": "1.0.0"
+    },
     "min_core_version": "1.0.0",
     "python_dependencies": [],
     "dependencies_required": true,

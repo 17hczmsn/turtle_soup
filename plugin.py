@@ -4,18 +4,20 @@ from __future__ import annotations
 
 from src.app.plugin_system.base import BasePlugin, register_plugin
 
-from .actions import (
-    AskTurtleSoupQuestionAction,
-    ExitTurtleSoupGameAction,
-    GuessTurtleSoupAnswerAction,
-    RequestTurtleSoupHintAction,
-    RevealTurtleSoupAnswerAction,
-    StartTurtleSoupGameAction,
-    SummarizeTurtleSoupCluesAction,
-)
 from .config import TurtleSoupConfig
+from .events import TurtleSoupIdleTimeoutHandler
 from .service import TurtleSoupService
-from .tools import GetTurtleSoupQuestionTool, GetTurtleSoupStateTool
+from .tools import (
+    AskTurtleSoupQuestionTool,
+    ExitTurtleSoupGameTool,
+    GetTurtleSoupQuestionTool,
+    GetTurtleSoupStateTool,
+    GuessTurtleSoupAnswerTool,
+    RequestTurtleSoupHintTool,
+    RevealTurtleSoupAnswerTool,
+    StartTurtleSoupGameTool,
+    SummarizeTurtleSoupCluesTool,
+)
 
 
 @register_plugin
@@ -33,13 +35,14 @@ class TurtleSoupPlugin(BasePlugin):
 
         return [
             TurtleSoupService,
-            StartTurtleSoupGameAction,
-            AskTurtleSoupQuestionAction,
-            RequestTurtleSoupHintAction,
-            SummarizeTurtleSoupCluesAction,
-            GuessTurtleSoupAnswerAction,
-            RevealTurtleSoupAnswerAction,
-            ExitTurtleSoupGameAction,
+            StartTurtleSoupGameTool,
+            AskTurtleSoupQuestionTool,
+            RequestTurtleSoupHintTool,
+            SummarizeTurtleSoupCluesTool,
+            GuessTurtleSoupAnswerTool,
+            RevealTurtleSoupAnswerTool,
+            ExitTurtleSoupGameTool,
             GetTurtleSoupStateTool,
             GetTurtleSoupQuestionTool,
+            TurtleSoupIdleTimeoutHandler,
         ]

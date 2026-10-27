@@ -8,6 +8,7 @@ from src.app.plugin_system.api.llm_api import create_llm_request, get_model_set_
 from src.kernel.llm import LLMPayload, ROLE, Text
 
 from .models import TurtleSoupHistoryItem, TurtleSoupState
+from .utils import normalize_answer, normalize_hint, summarize_known_info
 
 
 class TurtleSoupLLMClient:
@@ -23,7 +24,16 @@ class TurtleSoupLLMClient:
 
         prompt = self._build_prompt(
             state,
-            f"玩家问题：{question}\n只能从“是”“否”“不重要”“部分正确”四个词中选择一个输出，不要输出任何解释、标点或额外文字。",
+            f"玩家问题：{question}\n"
+            "请判断该问题陈述相对汤底的事实归属，从“是”“否”“不重要”“部分正确”四个词中选择一个输出，"
+            "不要输出任何解释、标点或额外文字。\n"
+            "判定标准（从严掌握，宁严勿松）：\n"
+            "“是”：问题陈述的内容必须在汤底中直接成立，或能由汤底必然推出；只是方向沾边、细节无法确认时，不得回答“是”。\n"
+            "“否”：问题陈述与汤底矛盾，或汤底不支持该内容。\n"
+            "“部分正确”：问题只说对了一半，或方向正确但关键细节有偏差。\n"
+            "“不重要”：该问题与还原汤底真相基本无关，或其影响可以忽略。\n"
+            "拿不准时优先选“否”或“不重要”，绝不能用“是”去鼓励一个偏离汤底的方向；"
+            "回答还必须与历史交互中已有的回答保持一致，不能自相矛盾。",
         )
         response = await self._send(prompt, "turtle_soup_question")
         return self._normalize_question_answer(response)
@@ -45,18 +55,26 @@ class TurtleSoupLLMClient:
         response = await self._send(prompt, "turtle_soup_opening")
         return self._normalize_opening(response, state)
 
-    async def create_hint(self, state: TurtleSoupState) -> str:
-        """根据汤底和已公开进度生成递进提示。"""
+    async def create_hint(self, state: TurtleSoupState, max_hints: int = 3) -> str:
+        """基于玩家已知信息生成递进提示。
 
-        prompt = self._build_prompt(
-            state,
-            "请根据汤底和历史交互生成一个递进提示。要求：\n"
-            "1. 必须严格贴合汤底，不能猜测、不能编造其他可能性。\n"
-            "2. 必须结合玩家已经问过的问题和已得到的回答，优先提示玩家还没触及的关键方向。\n"
-            "3. 不要直接说出完整汤底、身份、结局或关键反转；只给一条方向性线索。\n"
-            "4. 如果历史里玩家已经问到某方向且回答为否，不要再沿那个方向提示。\n"
-            "5. 最多 35 字，只输出给玩家看的提示，不要输出推理过程。",
+        提示词只向模型提供汤面、汤底和"玩家已知信息"归纳
+        （已确认事实 / 已排除方向 / 已给提示），要求新提示必须避开
+        这些内容，防止重复或直接泄底。
+        """
+
+        confirmed, rejected, given_hints = self._summarize_known_info(state)
+        known_section = (
+            "玩家已知信息归纳：\n"
+            "已确认的事实（问过且回答为“是/部分正确”）：\n"
+            + self._format_bullet_list(confirmed)
+            + "\n已排除的方向（问过且回答为“否”，或已猜错）：\n"
+            + self._format_bullet_list(rejected)
+            + "\n已给过的提示（禁止重复或换说法复述）：\n"
+            + self._format_bullet_list(given_hints)
+            + f"\n本次是第 {state.hints_used + 1} 次提示（每局共 {max_hints} 次）。"
         )
+        prompt = self._build_hint_prompt(state, known_section)
         response = await self._send(prompt, "turtle_soup_hint")
         return self._normalize_hint(response, state)
 
@@ -158,10 +176,7 @@ class TurtleSoupLLMClient:
     def _normalize_question_answer(self, response: str) -> str:
         """将问答输出限制为海龟汤标准回答。"""
 
-        for answer in ("部分正确", "不重要", "是", "否"):
-            if answer in response:
-                return answer
-        return "不重要"
+        return normalize_answer(response)
 
     def _normalize_opening(self, response: str, state: TurtleSoupState) -> str:
         """确保开局话术包含原始汤面且不泄露汤底。"""
@@ -183,17 +198,36 @@ class TurtleSoupLLMClient:
     def _normalize_hint(self, response: str, state: TurtleSoupState) -> str:
         """清理提示输出，避免推理过程和完整汤底泄露。"""
 
-        hint = response.strip().splitlines()[0].strip()
-        hint = re.sub(r"^(提示|线索|方向)[:：]\s*", "", hint)
-        if not hint:
-            return "请关注汤面里最反常的变化。"
+        return normalize_hint(response, state.current_answer)
 
-        answer = re.sub(r"\s+", "", state.current_answer)
-        compact_hint = re.sub(r"\s+", "", hint)
-        if answer and (answer in compact_hint or compact_hint in answer and len(compact_hint) >= 18):
-            return "请关注汤面里最反常的变化。"
+    def _summarize_known_info(self, state: TurtleSoupState) -> tuple[list[str], list[str], list[str]]:
+        """把历史交互归纳为玩家已知信息：已确认、已排除、已给提示。"""
 
-        return hint[:35]
+        return summarize_known_info(state)
+
+    @staticmethod
+    def _format_bullet_list(items: list[str]) -> str:
+        """把已知信息条目格式化为项目符号列表。"""
+
+        return "\n".join(f"- {item}" for item in items) if items else "- 暂无"
+
+    @staticmethod
+    def _build_hint_prompt(state: TurtleSoupState, known_section: str) -> str:
+        """构造提示生成提示词。"""
+
+        return (
+            "你是海龟汤主持人。必须严格依据已给出的汤面和汤底生成提示，不能编造新真相。\n"
+            "不要输出推理过程、思考过程、分析过程或 <think> 标签，只输出给玩家看的提示。\n\n"
+            f"汤面：{state.current_question}\n"
+            f"汤底：{state.current_answer}\n\n"
+            f"{known_section}\n\n"
+            "任务：生成一条新提示。要求：\n"
+            "1. 只能基于汤底，选择一个玩家尚未确认、尚未排除、也没有提示过的方向，给出模糊的方向性线索。\n"
+            "2. 严禁泄露汤底中任何尚未公开的关键名词、身份、地点、动机或结局；玩家听完提示后仍需要继续提问才能逼近真相。\n"
+            "3. 玩家已知信息里的内容一律不再提及，也不要换个说法重复。\n"
+            "4. 具体程度随提示次数递进：越靠后的提示可以越具体，但仍不得破题。\n"
+            "5. 最多 35 字，只输出提示本身，不要编号、前缀、解释或引号。"
+        )
 
     def _normalize_reveal(self, response: str, state: TurtleSoupState) -> str:
         """确保揭秘话术包含完整汤底。"""

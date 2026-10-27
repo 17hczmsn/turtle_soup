@@ -27,7 +27,15 @@ class TurtleSoupPuzzleCache:
             return []
         if not isinstance(raw, list):
             return []
-        return [TurtleSoupPuzzle.from_dict(item) for item in raw if isinstance(item, dict)]
+        puzzles: list[TurtleSoupPuzzle] = []
+        for item in raw:
+            if not isinstance(item, dict):
+                continue
+            try:
+                puzzles.append(TurtleSoupPuzzle.from_dict(item))
+            except (TypeError, ValueError):
+                continue
+        return puzzles
 
     def save(self, puzzles: list[TurtleSoupPuzzle]) -> None:
         """写入缓存题库。"""
